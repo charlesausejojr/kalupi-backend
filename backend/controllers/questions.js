@@ -1,18 +1,19 @@
 let Question = require('../models/question.model');
+var mongoose = require('mongoose');
 
-const getQuestions = (req,res) => {
+const getQuestions = async (req,res) => {
     Question.find()
     .then(questions => res.json(questions))
     .catch(err => res.status(400).json('Error: ' + err));
 }
 
-const getOneQuestion = (req,res) => {
+const getOneQuestion = async (req,res) => {
     Question.findById(req.params.id)
     .then(question => res.json(question))
     .catch(err => res.status(400).json('Error : ' + err));
 }
 
-const postQuestion = (req,res) => {
+const postQuestion = async (req,res) => {
     const username = req.body.username;
     const title = req.body.title;
     const category = req.body.category;
@@ -36,17 +37,6 @@ const postQuestion = (req,res) => {
     .catch(err => res.status(400).json('Error: ' + err));    
 }
 
-const updateQuestion = async (req,res) => {
-    // rename id to _id
-    const { id: _id } = req.params;
-    const question = req.body;
-
-    if(!mongoose.types.ObjectId.isvalid(_id)) return res.status(404).send('Id not found');
-
-    const updatedQuestion = Question.findByIdAndUpdate(_id, question, {new: true});
-    res.json(updatedQuestion);
-}
-
 const getOwnQuestions = async (req,res) => {
     const { googleId } = req.params;
 
@@ -60,6 +50,5 @@ module.exports = {
     getQuestions,
     getOneQuestion,
     postQuestion,
-    updateQuestion,
-    getOwnQuestions
+    getOwnQuestions,
 };

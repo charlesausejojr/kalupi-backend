@@ -20,11 +20,9 @@ connection.once('open', () => {
 
 const questionsRouter = require('./routes/questions');
 const answersRouter = require('./routes/answers');
-const usersRouter = require('./routes/users');
 
 app.use('/questions', questionsRouter);
 app.use('/answers', answersRouter);
-app.use('/users', usersRouter);
 
 
 app.listen(port, () => {

@@ -3,11 +3,15 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const answerSchema = new Schema({
-  username: { type: String, required: true },
-  answer: { type: String, required: true },
+  questionId: { type: String },
+  answer: { type: String },
+  googleId: { type: String },
+  picture: { type: String },
+  name: { type: String }
 }, {
   timestamps: true,
-});
+}
+);
 
 const Answer = mongoose.model('Answer', answerSchema);
 
